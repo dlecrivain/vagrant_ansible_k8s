@@ -1,0 +1,88 @@
+- name: Ajout de la clé GPG
+  apt_key:
+    url: https://download.docker.com/linux/ubuntu/gpg
+    state: present
+
+- name: Ajout du depot Docker
+  apt_repository:
+    repo: deb https://download.docker.com/linux/ubuntu hirsute stable
+    state: present
+
+- name: Update et installation de Docker
+  apt:
+   update_cache: yes
+   pkg:
+     - docker-ce
+     - docker-ce-cli
+     - containerd.io
+   state: latest
+
+- name: Install Docker Module for Python
+  pip:
+    name: docker  
+
+- name: Change privilege of docker
+  file:
+    dest: /usr/bin/docker
+    mode: +x
+
+- name: Ajouter user vagrant pour docker
+  user:
+    name: vagrant
+    groups: docker
+    append: yes
+
+- name: Création du groupe dockremap
+  group:
+    name: dockremap
+    gid: 500000
+    state: present
+
+- name: Création du groupe dockeremap-user
+  group:
+    name: dockremap-user
+    gid: 501000
+    state: present
+
+- name: Création du user dockremap
+  user:
+    name: dockremap
+    group: dockremap
+    uid: 500000
+    shell: /bin/false
+
+- name: Création du user dockremap-user
+  user:
+    name: dockremap-user
+    group: dockremap-user
+    uid: 501000
+    shell: /bin/false
+
+- name: Ajout ligne pour la conf /etc/subuid
+  lineinfile:
+    path: /etc/subuid
+    line: dockremap:500000:65536
+    create: yes
+
+- name: Ajout ligne pour la conf /etc/subgid
+  lineinfile:
+    path: /etc/subgid
+    line: dockremap:500000:65536
+    create: yes
+
+- name: Preparation de /etc/docker/daemon.json
+  copy:
+    dest: /etc/docker/daemon.json
+    content: |
+      {
+       "userns-remap": "default"
+      }
+
+- name: daemon-reload
+  systemd:
+    daemon_reload: yes
+
+- name: restart docker service
+  systemd:
+    name: docker
+    state: restarted

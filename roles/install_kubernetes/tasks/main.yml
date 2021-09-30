@@ -1,0 +1,16 @@
+- name: Ajout de la clé GPG
+  ansible.builtin.apt_key:
+    url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
+    state: present
+- name: Ajout du depot Kubernetes      
+  ansible.builtin.apt_repository:
+    repo: deb http://apt.kubernetes.io/ kubernetes-xenial main
+    state: present
+- name: Installation de Kubernetes
+  apt:
+    pkg:
+      - kubelet
+      - kubeadm
+      - kubectl
+      - kubernetes-cni
+    state: present

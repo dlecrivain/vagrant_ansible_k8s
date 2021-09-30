@@ -1,0 +1,10 @@
+---
+- name: installation des prerequis pour Kubernetes
+  hosts: all
+  become: yes
+  roles :
+    - freehck.disable_swap
+    - update_system
+    - install_docker  
+    - install_kubernetes  
+      
