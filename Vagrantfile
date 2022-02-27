@@ -7,9 +7,9 @@ Vagrant.configure(2) do |config|
       
 # set servers list and their parameters
       NODES = [
-        { :hostname => "kub_master_1", :ip => "192.168.12.11", :cpus => 2, :mem => 1024, :type => "kub", :group => "/Kubernetes"},
-        { :hostname => "kub_node_1", :ip => "192.168.12.12", :cpus => 1, :mem => 512, :type => "kub", :group => "/Kubernetes"}, 
-        { :hostname => "kub_node_2", :ip => "192.168.12.13", :cpus => 1, :mem => 512, :type => "kub", :group => "/Kubernetes"},
+        { :hostname => "kub-master-1", :ip => "192.168.12.11", :cpus => 2, :mem => 1024, :type => "kub", :group => "/Kubernetes"},
+        { :hostname => "kub-node-1", :ip => "192.168.12.12", :cpus => 1, :mem => 512, :type => "kub", :group => "/Kubernetes"}, 
+        { :hostname => "kub-node-2", :ip => "192.168.12.13", :cpus => 1, :mem => 512, :type => "kub", :group => "/Kubernetes"},
 ]
 
       # run installation
