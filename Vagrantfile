@@ -1,15 +1,15 @@
 Vagrant.configure(2) do |config|
 
   
-      config.vm.box = "bento/ubuntu-21.04"
-      config.vm.box_url = "bento/ubuntu-21.04"
+      config.vm.box = "bento/ubuntu-23.04"
+      config.vm.box_url = "bento/ubuntu-23.04"
       config.vm.box_check_update = false
       
 # set servers list and their parameters
       NODES = [
         { :hostname => "kub-master-1", :ip => "192.168.12.11", :cpus => 2, :mem => 1024, :type => "kub", :group => "/Kubernetes"},
-        { :hostname => "kub-node-1", :ip => "192.168.12.12", :cpus => 1, :mem => 512, :type => "kub", :group => "/Kubernetes"}, 
-        { :hostname => "kub-node-2", :ip => "192.168.12.13", :cpus => 1, :mem => 512, :type => "kub", :group => "/Kubernetes"},
+        { :hostname => "kub-node-1", :ip => "192.168.12.12", :cpus => 1, :mem => 1024, :type => "kub", :group => "/Kubernetes"}, 
+        { :hostname => "kub-node-2", :ip => "192.168.12.13", :cpus => 1, :mem => 1024, :type => "kub", :group => "/Kubernetes"},
 ]
 
       # run installation

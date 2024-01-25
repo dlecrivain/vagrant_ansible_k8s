@@ -4,7 +4,7 @@
   become: yes
   roles :
     - freehck.disable_swap
-    #- update_system
+    - update_system
     #- install_docker  
     #- install_kubernetes  
       
